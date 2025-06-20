@@ -32,12 +32,12 @@ const Projects = () => {
   ];
 
   return (
-    <section className="py-20 px-4 bg-red-50">
+    <section className="py-20 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
           <div className="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-300 max-w-2xl mx-auto">
             A showcase of my recent work, demonstrating my skills in full stack development, 
             data analysis, and creating user-centered digital solutions.
           </p>
@@ -45,7 +45,7 @@ const Projects = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in bg-white">
+            <Card key={index} className="overflow-hidden hover:shadow-lg hover:shadow-red-600/20 transition-all duration-300 hover:scale-105 animate-fade-in bg-gray-800 border-red-600/30 hover:border-red-500">
               <div className="relative overflow-hidden">
                 <img 
                   src={project.image} 
@@ -55,16 +55,16 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-red-600 bg-opacity-0 hover:bg-opacity-10 transition-all duration-300"></div>
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-gray-900">{project.title}</CardTitle>
+                <CardTitle className="text-xl text-white">{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech, techIndex) => (
                     <Badge 
                       key={techIndex} 
                       variant="secondary" 
-                      className="bg-red-100 text-red-800 hover:bg-red-200"
+                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-colors duration-200 border border-red-600/30"
                     >
                       {tech}
                     </Badge>
@@ -80,7 +80,7 @@ const Projects = () => {
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="border-red-600 text-red-600 hover:bg-red-50 flex-1"
+                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1"
                   >
                     GitHub
                   </Button>
