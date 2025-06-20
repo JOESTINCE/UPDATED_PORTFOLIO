@@ -2,8 +2,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useRef } from "react";
 
 const Projects = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+
   const projects = [
     {
       title: "E-Commerce Analytics Platform",
@@ -31,13 +36,43 @@ const Projects = () => {
     }
   ];
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate-fade-in');
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
+          }, index * 150); // Stagger the animations
+        }
+      });
+    }, observerOptions);
+
+    const cards = sectionRef.current?.querySelectorAll('.project-card');
+    const headerElements = [titleRef.current, descRef.current];
+
+    [...headerElements, ...(cards || [])].forEach((el) => {
+      if (el) {
+        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+        observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-20 px-4 bg-black">
+    <section ref={sectionRef} className="py-20 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
+          <h2 ref={titleRef} className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
           <div className="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p ref={descRef} className="text-gray-300 max-w-2xl mx-auto">
             A showcase of my recent work, demonstrating my skills in full stack development, 
             data analysis, and creating user-centered digital solutions.
           </p>
@@ -45,17 +80,17 @@ const Projects = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="overflow-hidden hover:shadow-lg hover:shadow-red-600/20 transition-all duration-300 hover:scale-105 animate-fade-in bg-gray-800 border-red-600/30 hover:border-red-500">
+            <Card key={index} className="project-card overflow-hidden hover:shadow-lg hover:shadow-red-600/20 transition-all duration-300 hover:scale-105 bg-gray-800 border-red-600/30 hover:border-red-500 group">
               <div className="relative overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-red-600 bg-opacity-0 hover:bg-opacity-10 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-red-600 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-white">{project.title}</CardTitle>
+                <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300">{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
@@ -64,7 +99,7 @@ const Projects = () => {
                     <Badge 
                       key={techIndex} 
                       variant="secondary" 
-                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-colors duration-200 border border-red-600/30"
+                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-200 border border-red-600/30 hover:scale-110 hover:shadow-md"
                     >
                       {tech}
                     </Badge>
@@ -73,14 +108,14 @@ const Projects = () => {
                 <div className="flex gap-3">
                   <Button 
                     size="sm" 
-                    className="bg-red-600 hover:bg-red-700 text-white flex-1"
+                    className="bg-red-600 hover:bg-red-700 text-white flex-1 hover:scale-105 transition-transform duration-200 hover:shadow-lg hover:shadow-red-600/50"
                   >
                     Live Demo
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1"
+                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1 hover:scale-105 transition-transform duration-200 hover:shadow-lg hover:shadow-red-400/30"
                   >
                     GitHub
                   </Button>
