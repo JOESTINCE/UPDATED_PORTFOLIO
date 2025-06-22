@@ -156,7 +156,7 @@ const Hero = () => {
             >
               <div className="w-full h-full rounded-full bg-gray-800 p-4 border-2 border-red-400/30 hover:border-red-400/60 transition-all duration-500">
               <img
-                src="/Jestus.jpg"
+                src="Jestus.jpg"
                 alt="Jestus - Full Stack Developer"
                 className="w-full h-full object-contain rounded-full hover:scale-102 transition-transform duration-500"
               />
