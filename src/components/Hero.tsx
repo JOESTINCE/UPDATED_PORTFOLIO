@@ -155,20 +155,12 @@ const Hero = () => {
               style={{ transform: `translateY(${scrollY * 0.03}px) rotateY(${scrollY * 0.02}deg)` }}
             >
               <div className="w-full h-full rounded-full bg-gray-800 p-4 border-2 border-red-400/30 hover:border-red-400/60 transition-all duration-500">
-<<<<<<< HEAD
               <img
                 src="/Jestus.jpg"
                 alt="Jestus - Full Stack Developer"
                 className="w-full h-full object-contain rounded-full hover:scale-102 transition-transform duration-500"
               />
 
-=======
-                <img
-                  src="/lovable-uploads/86b01ff3-a156-4448-a53b-26bcdc72a445.png"
-                  alt="Jestus - Full Stack Developer"
-                  className="w-full h-full object-contain rounded-full hover:scale-102 transition-transform duration-500"
-                />
->>>>>>> 50f085b8baec85c41bb440237862b629b343c3cd
               </div>
             </div>
             <div 
