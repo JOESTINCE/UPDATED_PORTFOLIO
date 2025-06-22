@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
@@ -156,7 +155,7 @@ const Hero = () => {
                 <img
                   src="/lovable-uploads/86b01ff3-a156-4448-a53b-26bcdc72a445.png"
                   alt="Jestus - Full Stack Developer"
-                  className="w-full h-full object-cover rounded-full hover:scale-102 transition-transform duration-500"
+                  className="w-full h-full object-contain rounded-full hover:scale-102 transition-transform duration-500"
                 />
               </div>
             </div>
