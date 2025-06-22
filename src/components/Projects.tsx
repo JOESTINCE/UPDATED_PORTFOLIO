@@ -47,8 +47,8 @@ const Projects = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-8');
-          }, index * 150); // Stagger the animations
+            entry.target.classList.remove('opacity-0', 'translate-y-16', 'scale-90', 'rotate-2');
+          }, index * 200); // Staggered animation
         }
       });
     }, observerOptions);
@@ -56,9 +56,12 @@ const Projects = () => {
     const cards = sectionRef.current?.querySelectorAll('.project-card');
     const headerElements = [titleRef.current, descRef.current];
 
-    [...headerElements, ...(cards || [])].forEach((el) => {
+    [...headerElements, ...(cards || [])].forEach((el, index) => {
       if (el) {
-        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+        el.classList.add('opacity-0', 'translate-y-16', 'scale-90', 'transition-all', 'duration-700', 'ease-out');
+        if (index > 1) { // Only project cards get rotation
+          el.classList.add('rotate-2');
+        }
         observer.observe(el);
       }
     });
@@ -67,12 +70,19 @@ const Projects = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-black">
-      <div className="max-w-6xl mx-auto">
+    <section ref={sectionRef} className="py-20 px-4 bg-black relative overflow-hidden">
+      {/* Enhanced animated background elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 left-10 w-72 h-72 bg-red-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-red-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-red-600/15 rounded-full blur-2xl animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h2 ref={titleRef} className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
-          <div className="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
-          <p ref={descRef} className="text-gray-300 max-w-2xl mx-auto">
+          <h2 ref={titleRef} className="text-4xl font-bold text-white mb-4 hover:text-red-300 transition-colors duration-500">Featured Projects</h2>
+          <div className="w-24 h-1 bg-red-600 mx-auto mb-8 hover:w-32 transition-all duration-500"></div>
+          <p ref={descRef} className="text-gray-300 max-w-2xl mx-auto hover:text-gray-200 transition-colors duration-300">
             A showcase of my recent work, demonstrating my skills in full stack development, 
             data analysis, and creating user-centered digital solutions.
           </p>
@@ -80,26 +90,28 @@ const Projects = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="project-card overflow-hidden hover:shadow-lg hover:shadow-red-600/20 transition-all duration-300 hover:scale-105 bg-gray-800 border-red-600/30 hover:border-red-500 group">
+            <Card key={index} className="project-card overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-110 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-4 hover:rotate-0">
               <div className="relative overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-48 object-cover transition-all duration-700 group-hover:scale-125 group-hover:brightness-110"
                 />
-                <div className="absolute inset-0 bg-red-600 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-red-600/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse group-hover:scale-150 transition-transform duration-300"></div>
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300">{project.title}</CardTitle>
+                <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300 group-hover:scale-105 inline-block">{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-300 mb-4 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech, techIndex) => (
                     <Badge 
                       key={techIndex} 
                       variant="secondary" 
-                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-200 border border-red-600/30 hover:scale-110 hover:shadow-md"
+                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-125 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
+                      style={{ animationDelay: `${techIndex * 100}ms` }}
                     >
                       {tech}
                     </Badge>
@@ -108,14 +120,14 @@ const Projects = () => {
                 <div className="flex gap-3">
                   <Button 
                     size="sm" 
-                    className="bg-red-600 hover:bg-red-700 text-white flex-1 hover:scale-105 transition-transform duration-200 hover:shadow-lg hover:shadow-red-600/50"
+                    className="bg-red-600 hover:bg-red-700 text-white flex-1 hover:scale-110 transition-all duration-300 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1"
                   >
                     Live Demo
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1 hover:scale-105 transition-transform duration-200 hover:shadow-lg hover:shadow-red-400/30"
+                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1 hover:scale-110 transition-all duration-300 hover:shadow-xl hover:shadow-red-400/30 hover:-translate-y-1"
                   >
                     GitHub
                   </Button>
