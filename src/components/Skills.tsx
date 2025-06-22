@@ -46,20 +46,46 @@ const Skills = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-12', 'scale-95');
-          }, index * 150); // Staggered animation
+            entry.target.classList.remove('opacity-0', 'translate-y-40', '-translate-y-40', 'translate-x-40', '-translate-x-40', 'scale-0', 'rotate-180', '-rotate-180', 'skew-x-12', 'skew-y-12');
+          }, index * 200);
         }
       });
     }, observerOptions);
 
-    const cards = sectionRef.current?.querySelectorAll('.skill-card');
-    const headerElements = [titleRef.current, descRef.current];
+    // Header animations - title from top with flip, description from bottom with scale
+    if (titleRef.current) {
+      titleRef.current.classList.add('opacity-0', '-translate-y-40', 'rotate-180', 'scale-0', 'transition-all', 'duration-1000', 'ease-out');
+      observer.observe(titleRef.current);
+    }
 
-    [...headerElements, ...(cards || [])].forEach((el, index) => {
-      if (el) {
-        el.classList.add('opacity-0', 'translate-y-12', 'scale-95', 'transition-all', 'duration-700', 'ease-out');
-        observer.observe(el);
+    if (descRef.current) {
+      descRef.current.classList.add('opacity-0', 'translate-y-40', 'scale-0', 'transition-all', 'duration-1000', 'ease-out', 'delay-200');
+      observer.observe(descRef.current);
+    }
+
+    // Skills cards with unique directional animations
+    const cards = sectionRef.current?.querySelectorAll('.skill-card');
+    cards?.forEach((card, index) => {
+      const element = card as HTMLElement;
+      element.classList.add('opacity-0', 'transition-all', 'duration-1000', 'ease-out');
+      element.style.transitionDelay = `${(index + 1) * 300}ms`;
+
+      // Unique animation for each skill card
+      switch(index) {
+        case 0: // Frontend - spin in from top-left
+          element.classList.add('-translate-x-40', '-translate-y-40', '-rotate-180', 'scale-0', 'skew-x-12');
+          break;
+        case 1: // Backend - spin in from top-right
+          element.classList.add('translate-x-40', '-translate-y-40', 'rotate-180', 'scale-0', '-skew-x-12');
+          break;
+        case 2: // Data Analysis - spin in from bottom-left
+          element.classList.add('-translate-x-40', 'translate-y-40', 'rotate-180', 'scale-0', 'skew-y-12');
+          break;
+        case 3: // Tools - spin in from bottom-right
+          element.classList.add('translate-x-40', 'translate-y-40', '-rotate-180', 'scale-0', '-skew-y-12');
+          break;
       }
+      observer.observe(element);
     });
 
     return () => observer.disconnect();
@@ -67,10 +93,11 @@ const Skills = () => {
 
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-black relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Enhanced animated background elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-red-500/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-red-400/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">

@@ -44,31 +44,45 @@ const Experience = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-x-12');
-          }, index * 200); // Staggered animation
+            entry.target.classList.remove('opacity-0', 'translate-y-48', '-translate-y-48', 'translate-x-48', '-translate-x-48', 'scale-0', 'rotate-90', '-rotate-90', 'skew-x-45', 'skew-y-45');
+          }, index * 250);
         }
       });
     }, observerOptions);
 
-    const cards = sectionRef.current?.querySelectorAll('.experience-card');
-    const headerElements = [titleRef.current, descRef.current];
-    const timeline = timelineRef.current;
-
-    if (timeline) {
-      timeline.classList.add('opacity-0', 'scale-y-0', 'transition-all', 'duration-1000', 'ease-out');
-      observer.observe(timeline);
+    // Header animations with extreme effects
+    if (titleRef.current) {
+      titleRef.current.classList.add('opacity-0', '-translate-y-48', 'rotate-90', 'scale-0', 'skew-x-45', 'transition-all', 'duration-1200', 'ease-out');
+      observer.observe(titleRef.current);
     }
 
-    [...headerElements, ...(cards || [])].forEach((el, index) => {
-      if (el) {
-        el.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-700', 'ease-out');
-        if (index % 2 === 0) {
-          el.classList.add('translate-x-12');
-        } else {
-          el.classList.add('-translate-x-12');
-        }
-        observer.observe(el);
+    if (descRef.current) {
+      descRef.current.classList.add('opacity-0', 'translate-y-48', '-rotate-90', 'scale-0', 'skew-y-45', 'transition-all', 'duration-1200', 'ease-out', 'delay-300');
+      observer.observe(descRef.current);
+    }
+
+    // Timeline animation
+    if (timelineRef.current) {
+      timelineRef.current.classList.add('opacity-0', 'scale-y-0', 'transition-all', 'duration-1500', 'ease-out', 'delay-500');
+      observer.observe(timelineRef.current);
+    }
+
+    // Experience cards with alternating extreme animations
+    const cards = sectionRef.current?.querySelectorAll('.experience-card');
+    cards?.forEach((card, index) => {
+      const element = card as HTMLElement;
+      element.classList.add('opacity-0', 'transition-all', 'duration-1200', 'ease-out');
+      element.style.transitionDelay = `${(index + 3) * 400}ms`;
+
+      // Alternating extreme animations
+      if (index % 2 === 0) {
+        // Even cards: slide from far left with rotation and skew
+        element.classList.add('-translate-x-48', 'translate-y-48', '-rotate-90', 'scale-0', 'skew-x-45');
+      } else {
+        // Odd cards: slide from far right with opposite effects
+        element.classList.add('translate-x-48', '-translate-y-48', 'rotate-90', 'scale-0', '-skew-x-45');
       }
+      observer.observe(element);
     });
 
     return () => observer.disconnect();
@@ -76,10 +90,11 @@ const Experience = () => {
 
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-gray-900 relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Enhanced animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-40 h-40 bg-red-500/30 rounded-full blur-xl animate-pulse delay-500"></div>
         <div className="absolute bottom-20 right-10 w-56 h-56 bg-red-400/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-red-600/15 rounded-full blur-3xl animate-pulse delay-1500"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">

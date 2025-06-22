@@ -23,28 +23,33 @@ const Contact = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-x-12', 'scale-95');
-          }, index * 200);
+            entry.target.classList.remove('opacity-0', 'translate-y-56', '-translate-y-56', 'translate-x-56', '-translate-x-56', 'scale-0', 'rotate-360', '-rotate-360', 'skew-x-45', 'skew-y-45');
+          }, index * 400);
         }
       });
     }, observerOptions);
 
-    const elements = [titleRef.current, descRef.current, contentRef.current, formRef.current];
-    
-    elements.forEach((el, index) => {
-      if (el) {
-        el.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-700', 'ease-out');
-        if (index % 2 === 0) {
-          el.classList.add('translate-x-12');
-        } else {
-          el.classList.add('-translate-x-12');
-        }
-        if (index > 1) {
-          el.classList.add('scale-95');
-        }
-        observer.observe(el);
-      }
-    });
+    // Header animations with full rotation effects
+    if (titleRef.current) {
+      titleRef.current.classList.add('opacity-0', '-translate-y-56', 'rotate-360', 'scale-0', 'skew-x-45', 'transition-all', 'duration-1500', 'ease-out');
+      observer.observe(titleRef.current);
+    }
+
+    if (descRef.current) {
+      descRef.current.classList.add('opacity-0', 'translate-y-56', '-rotate-360', 'scale-0', 'skew-y-45', 'transition-all', 'duration-1500', 'ease-out', 'delay-400');
+      observer.observe(descRef.current);
+    }
+
+    // Content and form with opposite spiral effects
+    if (contentRef.current) {
+      contentRef.current.classList.add('opacity-0', '-translate-x-56', 'translate-y-56', 'rotate-360', 'scale-0', 'skew-x-45', '-skew-y-45', 'transition-all', 'duration-1400', 'ease-out', 'delay-800');
+      observer.observe(contentRef.current);
+    }
+
+    if (formRef.current) {
+      formRef.current.classList.add('opacity-0', 'translate-x-56', '-translate-y-56', '-rotate-360', 'scale-0', '-skew-x-45', 'skew-y-45', 'transition-all', 'duration-1400', 'ease-out', 'delay-1200');
+      observer.observe(formRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -56,6 +61,7 @@ const Contact = () => {
         <div className="absolute top-20 left-20 w-48 h-48 bg-red-500/30 rounded-full blur-xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-64 h-64 bg-red-400/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-red-600/25 rounded-full blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-red-700/15 rounded-full blur-3xl animate-pulse delay-3000"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">

@@ -47,23 +47,43 @@ const Projects = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-16', 'scale-90', 'rotate-2');
-          }, index * 200); // Staggered animation
+            entry.target.classList.remove('opacity-0', 'translate-y-64', '-translate-y-64', 'translate-x-64', '-translate-x-64', 'scale-0', 'rotate-180', '-rotate-180', 'skew-x-45', '-skew-x-45', 'skew-y-45', '-skew-y-45');
+          }, index * 300);
         }
       });
     }, observerOptions);
 
-    const cards = sectionRef.current?.querySelectorAll('.project-card');
-    const headerElements = [titleRef.current, descRef.current];
+    // Header animations with spiral effect
+    if (titleRef.current) {
+      titleRef.current.classList.add('opacity-0', '-translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', 'skew-y-45', 'transition-all', 'duration-1400', 'ease-out');
+      observer.observe(titleRef.current);
+    }
 
-    [...headerElements, ...(cards || [])].forEach((el, index) => {
-      if (el) {
-        el.classList.add('opacity-0', 'translate-y-16', 'scale-90', 'transition-all', 'duration-700', 'ease-out');
-        if (index > 1) { // Only project cards get rotation
-          el.classList.add('rotate-2');
-        }
-        observer.observe(el);
+    if (descRef.current) {
+      descRef.current.classList.add('opacity-0', 'translate-y-64', '-rotate-180', 'scale-0', '-skew-x-45', '-skew-y-45', 'transition-all', 'duration-1400', 'ease-out', 'delay-400');
+      observer.observe(descRef.current);
+    }
+
+    // Project cards with dynamic spiral animations
+    const cards = sectionRef.current?.querySelectorAll('.project-card');
+    cards?.forEach((card, index) => {
+      const element = card as HTMLElement;
+      element.classList.add('opacity-0', 'transition-all', 'duration-1300', 'ease-out');
+      element.style.transitionDelay = `${(index + 2) * 350}ms`;
+
+      // Spiral effect for each project card
+      switch(index) {
+        case 0: // First project: spiral from top-left
+          element.classList.add('-translate-x-64', '-translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', '-skew-y-45');
+          break;
+        case 1: // Second project: spiral from top-right
+          element.classList.add('translate-x-64', '-translate-y-64', '-rotate-180', 'scale-0', '-skew-x-45', 'skew-y-45');
+          break;
+        case 2: // Third project: spiral from bottom center
+          element.classList.add('translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', 'skew-y-45');
+          break;
       }
+      observer.observe(element);
     });
 
     return () => observer.disconnect();
@@ -76,6 +96,7 @@ const Projects = () => {
         <div className="absolute top-10 left-10 w-72 h-72 bg-red-500/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-red-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-red-600/15 rounded-full blur-2xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-red-700/10 rounded-full blur-3xl animate-pulse delay-3000"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">

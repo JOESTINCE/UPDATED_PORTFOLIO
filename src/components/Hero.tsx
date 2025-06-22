@@ -30,8 +30,8 @@ const Hero = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-8', 'translate-x-8');
-          }, index * 200); // Staggered animation
+            entry.target.classList.remove('opacity-0', 'translate-y-20', 'translate-x-20', '-translate-x-20', 'scale-50', 'rotate-45', '-rotate-45');
+          }, index * 150);
         }
       });
     }, observerOptions);
@@ -47,11 +47,28 @@ const Hero = () => {
 
     elements.forEach((el, index) => {
       if (el) {
-        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000', 'ease-out');
-        if (index % 2 === 0) {
-          el.classList.add('translate-x-8');
-        } else {
-          el.classList.add('-translate-x-8');
+        el.classList.add('opacity-0', 'transition-all', 'duration-1000', 'ease-out');
+        
+        // Unique animations for each element
+        switch(index) {
+          case 0: // Name - slide from right with rotation
+            el.classList.add('translate-x-20', 'rotate-45', 'scale-50');
+            break;
+          case 1: // Title - slide from left
+            el.classList.add('-translate-x-20', 'translate-y-20');
+            break;
+          case 2: // Description - slide from bottom
+            el.classList.add('translate-y-20', 'scale-50');
+            break;
+          case 3: // Badges - slide from right with rotation
+            el.classList.add('translate-x-20', '-rotate-45');
+            break;
+          case 4: // Buttons - slide from bottom left
+            el.classList.add('-translate-x-20', 'translate-y-20', 'scale-50');
+            break;
+          case 5: // Image - slide from right with scale
+            el.classList.add('translate-x-20', 'scale-50', 'rotate-45');
+            break;
         }
         observer.observe(el);
       }

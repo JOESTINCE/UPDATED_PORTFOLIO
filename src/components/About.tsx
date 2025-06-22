@@ -25,29 +25,46 @@ const About = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
-          entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-x-12');
+          entry.target.classList.remove('opacity-0', 'translate-y-32', '-translate-x-32', 'translate-x-32', 'scale-0', 'rotate-180', '-rotate-90');
         }
       });
     }, observerOptions);
 
-    // Header animation
+    // Title animation - slide down with rotation
     if (titleRef.current) {
-      titleRef.current.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-1000', 'ease-out');
+      titleRef.current.classList.add('opacity-0', 'translate-y-32', 'rotate-180', 'scale-0', 'transition-all', 'duration-1200', 'ease-out');
       observer.observe(titleRef.current);
     }
 
-    // Content animation
+    // Content animation - slide from left with bounce
     if (contentRef.current) {
-      contentRef.current.classList.add('opacity-0', 'translate-x-12', 'transition-all', 'duration-1000', 'ease-out', 'delay-200');
+      contentRef.current.classList.add('opacity-0', '-translate-x-32', 'scale-0', 'transition-all', 'duration-1000', 'ease-out', 'delay-300');
       observer.observe(contentRef.current);
     }
 
-    // Stats animation with stagger
+    // Stats animation with stagger and unique directions
     const statCards = statsRef.current?.querySelectorAll('.stat-card');
     statCards?.forEach((card, index) => {
-      card.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-700', 'ease-out');
-      card.style.transitionDelay = `${(index + 1) * 150}ms`;
-      observer.observe(card);
+      const element = card as HTMLElement;
+      element.classList.add('opacity-0', 'transition-all', 'duration-800', 'ease-out');
+      element.style.transitionDelay = `${(index + 2) * 200}ms`;
+      
+      // Different animation for each stat card
+      switch(index) {
+        case 0: // Top-left: slide from top-left with rotation
+          element.classList.add('-translate-x-32', '-translate-y-32', '-rotate-90', 'scale-0');
+          break;
+        case 1: // Top-right: slide from top-right with rotation
+          element.classList.add('translate-x-32', '-translate-y-32', 'rotate-90', 'scale-0');
+          break;
+        case 2: // Bottom-left: slide from bottom-left
+          element.classList.add('-translate-x-32', 'translate-y-32', '-rotate-90', 'scale-0');
+          break;
+        case 3: // Bottom-right: slide from bottom-right
+          element.classList.add('translate-x-32', 'translate-y-32', 'rotate-90', 'scale-0');
+          break;
+      }
+      observer.observe(element);
     });
 
     return () => observer.disconnect();
@@ -55,10 +72,11 @@ const About = () => {
 
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-gray-900 relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Enhanced animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 right-10 w-32 h-32 bg-red-500/30 rounded-full blur-xl animate-pulse"></div>
         <div className="absolute bottom-20 left-20 w-48 h-48 bg-red-400/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-red-600/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
       
       <div className="max-w-6xl mx-auto relative z-10">
