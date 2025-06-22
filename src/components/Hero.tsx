@@ -112,18 +112,21 @@ const Hero = () => {
             className="text-2xl lg:text-3xl text-gray-300 mb-6 hover:text-red-300 transition-colors duration-300"
             style={{ transform: `translateY(${scrollY * 0.015}px)` }}
           >
-            Full Stack Developer & Data Analyst
+            Software Engineer
           </h2>
           <p 
             ref={descriptionRef} 
             className="text-lg text-gray-400 mb-8 leading-relaxed hover:text-gray-300 transition-colors duration-300"
             style={{ transform: `translateY(${scrollY * 0.01}px)` }}
           >
-            Passionate about creating innovative web applications and extracting insights from data. 
-            I specialize in modern web technologies and data analysis to build solutions that make a difference.
+            With over two years at Centizen, I excelled as a Software
+            Developer, enhancing user satisfaction through visually appealing interfaces
+            and robust functionalities. Skilled in Angular and NodeJS, I combine technical
+            expertise with strong problem-solving abilities, showcasing significant
+            achievements in web development without relying on routine task
           </p>
           <div ref={badgesRef} className="flex flex-wrap gap-3 mb-8">
-            {["React", "Python", "Data Analysis", "Machine Learning"].map((skill, index) => (
+            {["Angular", "NodeJS", "ExpressJS","PostgreSQL", "MySQL"].map((skill, index) => (
               <Badge 
                 key={skill}
                 variant="secondary" 
@@ -138,10 +141,10 @@ const Hero = () => {
             ))}
           </div>
           <div ref={buttonsRef} className="flex gap-4">
-            <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1">
+            {/* <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1">
               View My Work
-            </Button>
-            <Button variant="outline" className="border-red-400 text-red-400 hover:bg-red-900/20 px-8 py-3 rounded-lg transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-400/30 hover:-translate-y-1">
+            </Button> */}
+            <Button variant="outline" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1">
               Download CV
             </Button>
           </div>
@@ -153,11 +156,12 @@ const Hero = () => {
               style={{ transform: `translateY(${scrollY * 0.03}px) rotateY(${scrollY * 0.02}deg)` }}
             >
               <div className="w-full h-full rounded-full bg-gray-800 p-4 border-2 border-red-400/30 hover:border-red-400/60 transition-all duration-500">
-                <img
-                  src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Jestus - Full Stack Developer"
-                  className="w-full h-full object-cover rounded-full hover:scale-102 transition-transform duration-500"
-                />
+              <img
+                src="/Jestus.jpg"
+                alt="Jestus - Full Stack Developer"
+                className="w-full h-full object-contain rounded-full hover:scale-102 transition-transform duration-500"
+              />
+
               </div>
             </div>
             <div 

@@ -39,7 +39,7 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-md border-b border-red-800">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="font-bold text-xl text-red-400">Jestus</div>
+          <div className="font-bold text-xl text-red-400">PORTFOLIO</div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -56,9 +56,9 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button className="bg-red-600 hover:bg-red-700 text-white">
+            {/* <Button className="bg-red-600 hover:bg-red-700 text-white">
               Hire Me
-            </Button>
+            </Button> */}
           </div>
           
           {/* Mobile Menu Button */}
