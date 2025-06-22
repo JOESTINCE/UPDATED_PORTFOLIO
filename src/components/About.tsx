@@ -18,50 +18,50 @@ const About = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
-          entry.target.classList.remove('opacity-0', 'translate-y-32', '-translate-x-32', 'translate-x-32', 'scale-0', 'rotate-180', '-rotate-90');
+          entry.target.classList.remove('opacity-0', 'translate-y-12', '-translate-x-12', 'translate-x-12', 'scale-95', 'rotate-2', '-rotate-2');
         }
       });
     }, observerOptions);
 
-    // Title animation - slide down with rotation
+    // Title animation - gentle slide down
     if (titleRef.current) {
-      titleRef.current.classList.add('opacity-0', 'translate-y-32', 'rotate-180', 'scale-0', 'transition-all', 'duration-1200', 'ease-out');
+      titleRef.current.classList.add('opacity-0', 'translate-y-12', 'rotate-2', 'scale-95', 'transition-all', 'duration-800', 'ease-out', 'will-change-transform');
       observer.observe(titleRef.current);
     }
 
-    // Content animation - slide from left with bounce
+    // Content animation - gentle slide from left
     if (contentRef.current) {
-      contentRef.current.classList.add('opacity-0', '-translate-x-32', 'scale-0', 'transition-all', 'duration-1000', 'ease-out', 'delay-300');
+      contentRef.current.classList.add('opacity-0', '-translate-x-12', 'scale-95', 'transition-all', 'duration-700', 'ease-out', 'delay-200', 'will-change-transform');
       observer.observe(contentRef.current);
     }
 
-    // Stats animation with stagger and unique directions
+    // Stats animation with gentle stagger
     const statCards = statsRef.current?.querySelectorAll('.stat-card');
     statCards?.forEach((card, index) => {
       const element = card as HTMLElement;
-      element.classList.add('opacity-0', 'transition-all', 'duration-800', 'ease-out');
-      element.style.transitionDelay = `${(index + 2) * 200}ms`;
+      element.classList.add('opacity-0', 'transition-all', 'duration-600', 'ease-out', 'will-change-transform');
+      element.style.transitionDelay = `${(index + 3) * 100}ms`;
       
-      // Different animation for each stat card
+      // Gentler animation for each stat card
       switch(index) {
-        case 0: // Top-left: slide from top-left with rotation
-          element.classList.add('-translate-x-32', '-translate-y-32', '-rotate-90', 'scale-0');
+        case 0: // Top-left: gentle slide from top-left
+          element.classList.add('-translate-x-12', '-translate-y-12', '-rotate-2', 'scale-95');
           break;
-        case 1: // Top-right: slide from top-right with rotation
-          element.classList.add('translate-x-32', '-translate-y-32', 'rotate-90', 'scale-0');
+        case 1: // Top-right: gentle slide from top-right
+          element.classList.add('translate-x-12', '-translate-y-12', 'rotate-2', 'scale-95');
           break;
-        case 2: // Bottom-left: slide from bottom-left
-          element.classList.add('-translate-x-32', 'translate-y-32', '-rotate-90', 'scale-0');
+        case 2: // Bottom-left: gentle slide from bottom-left
+          element.classList.add('-translate-x-12', 'translate-y-12', '-rotate-2', 'scale-95');
           break;
-        case 3: // Bottom-right: slide from bottom-right
-          element.classList.add('translate-x-32', 'translate-y-32', 'rotate-90', 'scale-0');
+        case 3: // Bottom-right: gentle slide from bottom-right
+          element.classList.add('translate-x-12', 'translate-y-12', 'rotate-2', 'scale-95');
           break;
       }
       observer.observe(element);
@@ -118,10 +118,10 @@ const About = () => {
             {stats.map((stat, index) => (
               <Card 
                 key={index} 
-                className="stat-card text-center p-6 hover:shadow-2xl transition-all duration-500 hover:scale-110 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-2"
+                className="stat-card text-center p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-1"
               >
                 <CardContent className="p-0">
-                  <div className="text-3xl font-bold text-red-400 mb-2 group-hover:text-red-300 group-hover:scale-125 transition-all duration-300">{stat.number}</div>
+                  <div className="text-3xl font-bold text-red-400 mb-2 group-hover:text-red-300 group-hover:scale-110 transition-all duration-300">{stat.number}</div>
                   <div className="text-gray-300 font-medium group-hover:text-gray-200 transition-colors duration-300">{stat.label}</div>
                 </CardContent>
               </Card>

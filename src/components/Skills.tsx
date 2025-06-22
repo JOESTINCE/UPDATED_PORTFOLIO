@@ -38,7 +38,7 @@ const Skills = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -46,43 +46,43 @@ const Skills = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-40', '-translate-y-40', 'translate-x-40', '-translate-x-40', 'scale-0', 'rotate-180', '-rotate-180', 'skew-x-12', 'skew-y-12');
-          }, index * 200);
+            entry.target.classList.remove('opacity-0', 'translate-y-16', '-translate-y-16', 'translate-x-16', '-translate-x-16', 'scale-95', 'rotate-3', '-rotate-3');
+          }, index * 150);
         }
       });
     }, observerOptions);
 
-    // Header animations - title from top with flip, description from bottom with scale
+    // Header animations with gentle effects
     if (titleRef.current) {
-      titleRef.current.classList.add('opacity-0', '-translate-y-40', 'rotate-180', 'scale-0', 'transition-all', 'duration-1000', 'ease-out');
+      titleRef.current.classList.add('opacity-0', '-translate-y-16', 'rotate-3', 'scale-95', 'transition-all', 'duration-800', 'ease-out', 'will-change-transform');
       observer.observe(titleRef.current);
     }
 
     if (descRef.current) {
-      descRef.current.classList.add('opacity-0', 'translate-y-40', 'scale-0', 'transition-all', 'duration-1000', 'ease-out', 'delay-200');
+      descRef.current.classList.add('opacity-0', 'translate-y-16', 'scale-95', 'transition-all', 'duration-800', 'ease-out', 'delay-200', 'will-change-transform');
       observer.observe(descRef.current);
     }
 
-    // Skills cards with unique directional animations
+    // Skills cards with gentle directional animations
     const cards = sectionRef.current?.querySelectorAll('.skill-card');
     cards?.forEach((card, index) => {
       const element = card as HTMLElement;
-      element.classList.add('opacity-0', 'transition-all', 'duration-1000', 'ease-out');
-      element.style.transitionDelay = `${(index + 1) * 300}ms`;
+      element.classList.add('opacity-0', 'transition-all', 'duration-700', 'ease-out', 'will-change-transform');
+      element.style.transitionDelay = `${(index + 2) * 120}ms`;
 
-      // Unique animation for each skill card
+      // Gentle animation for each skill card
       switch(index) {
-        case 0: // Frontend - spin in from top-left
-          element.classList.add('-translate-x-40', '-translate-y-40', '-rotate-180', 'scale-0', 'skew-x-12');
+        case 0: // Frontend - gentle slide from top-left
+          element.classList.add('-translate-x-16', '-translate-y-16', '-rotate-3', 'scale-95');
           break;
-        case 1: // Backend - spin in from top-right
-          element.classList.add('translate-x-40', '-translate-y-40', 'rotate-180', 'scale-0', '-skew-x-12');
+        case 1: // Backend - gentle slide from top-right
+          element.classList.add('translate-x-16', '-translate-y-16', 'rotate-3', 'scale-95');
           break;
-        case 2: // Data Analysis - spin in from bottom-left
-          element.classList.add('-translate-x-40', 'translate-y-40', 'rotate-180', 'scale-0', 'skew-y-12');
+        case 2: // Data Analysis - gentle slide from bottom-left
+          element.classList.add('-translate-x-16', 'translate-y-16', 'rotate-3', 'scale-95');
           break;
-        case 3: // Tools - spin in from bottom-right
-          element.classList.add('translate-x-40', 'translate-y-40', '-rotate-180', 'scale-0', '-skew-y-12');
+        case 3: // Tools - gentle slide from bottom-right
+          element.classList.add('translate-x-16', 'translate-y-16', '-rotate-3', 'scale-95');
           break;
       }
       observer.observe(element);
@@ -114,10 +114,10 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <Card 
               key={index} 
-              className={`skill-card ${category.color} hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-105 hover:border-red-500 group cursor-pointer hover:-translate-y-3`}
+              className={`skill-card ${category.color} hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-102 hover:border-red-500 group cursor-pointer hover:-translate-y-2`}
             >
               <CardHeader className="text-center">
-                <div className="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">{category.icon}</div>
+                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">{category.icon}</div>
                 <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300">
                   {category.title}
                 </CardTitle>
@@ -128,8 +128,8 @@ const Skills = () => {
                     <Badge 
                       key={skillIndex} 
                       variant="secondary" 
-                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-110 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
-                      style={{ animationDelay: `${skillIndex * 50}ms` }}
+                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-105 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
+                      style={{ animationDelay: `${skillIndex * 30}ms` }}
                     >
                       {skill}
                     </Badge>

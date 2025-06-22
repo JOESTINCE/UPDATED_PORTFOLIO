@@ -36,7 +36,7 @@ const Experience = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -44,43 +44,43 @@ const Experience = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-48', '-translate-y-48', 'translate-x-48', '-translate-x-48', 'scale-0', 'rotate-90', '-rotate-90', 'skew-x-45', 'skew-y-45');
-          }, index * 250);
+            entry.target.classList.remove('opacity-0', 'translate-y-20', '-translate-y-20', 'translate-x-20', '-translate-x-20', 'scale-95', 'rotate-2', '-rotate-2');
+          }, index * 200);
         }
       });
     }, observerOptions);
 
-    // Header animations with extreme effects
+    // Header animations with gentle effects
     if (titleRef.current) {
-      titleRef.current.classList.add('opacity-0', '-translate-y-48', 'rotate-90', 'scale-0', 'skew-x-45', 'transition-all', 'duration-1200', 'ease-out');
+      titleRef.current.classList.add('opacity-0', '-translate-y-20', 'rotate-2', 'scale-95', 'transition-all', 'duration-800', 'ease-out', 'will-change-transform');
       observer.observe(titleRef.current);
     }
 
     if (descRef.current) {
-      descRef.current.classList.add('opacity-0', 'translate-y-48', '-rotate-90', 'scale-0', 'skew-y-45', 'transition-all', 'duration-1200', 'ease-out', 'delay-300');
+      descRef.current.classList.add('opacity-0', 'translate-y-20', '-rotate-2', 'scale-95', 'transition-all', 'duration-800', 'ease-out', 'delay-200', 'will-change-transform');
       observer.observe(descRef.current);
     }
 
     // Timeline animation
     if (timelineRef.current) {
-      timelineRef.current.classList.add('opacity-0', 'scale-y-0', 'transition-all', 'duration-1500', 'ease-out', 'delay-500');
+      timelineRef.current.classList.add('opacity-0', 'scale-y-0', 'transition-all', 'duration-1000', 'ease-out', 'delay-400', 'will-change-transform', 'origin-top');
       observer.observe(timelineRef.current);
     }
 
-    // Experience cards with alternating extreme animations
+    // Experience cards with alternating gentle animations
     const cards = sectionRef.current?.querySelectorAll('.experience-card');
     cards?.forEach((card, index) => {
       const element = card as HTMLElement;
-      element.classList.add('opacity-0', 'transition-all', 'duration-1200', 'ease-out');
-      element.style.transitionDelay = `${(index + 3) * 400}ms`;
+      element.classList.add('opacity-0', 'transition-all', 'duration-800', 'ease-out', 'will-change-transform');
+      element.style.transitionDelay = `${(index + 3) * 200}ms`;
 
-      // Alternating extreme animations
+      // Alternating gentle animations
       if (index % 2 === 0) {
-        // Even cards: slide from far left with rotation and skew
-        element.classList.add('-translate-x-48', 'translate-y-48', '-rotate-90', 'scale-0', 'skew-x-45');
+        // Even cards: gentle slide from left
+        element.classList.add('-translate-x-20', 'translate-y-20', '-rotate-2', 'scale-95');
       } else {
-        // Odd cards: slide from far right with opposite effects
-        element.classList.add('translate-x-48', '-translate-y-48', 'rotate-90', 'scale-0', '-skew-x-45');
+        // Odd cards: gentle slide from right
+        element.classList.add('translate-x-20', '-translate-y-20', 'rotate-2', 'scale-95');
       }
       observer.observe(element);
     });
@@ -108,23 +108,23 @@ const Experience = () => {
         </div>
         
         {/* Timeline line */}
-        <div ref={timelineRef} className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-red-600 via-red-500 to-red-400 h-full hidden lg:block origin-top"></div>
+        <div ref={timelineRef} className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-red-600 via-red-500 to-red-400 h-full hidden lg:block"></div>
         
         <div className="space-y-12">
           {experiences.map((exp, index) => (
             <div key={index} className={`flex flex-col lg:flex-row items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
               {/* Timeline dot */}
-              <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-600 rounded-full border-4 border-gray-900 z-10 hover:scale-150 transition-transform duration-300 cursor-pointer"></div>
+              <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-600 rounded-full border-4 border-gray-900 z-10 hover:scale-125 transition-transform duration-300 cursor-pointer"></div>
               
               <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
-                <Card className="experience-card hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-105 border-l-4 border-l-red-600 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-3">
+                <Card className="experience-card hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-102 border-l-4 border-l-red-600 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-2">
                   <CardHeader>
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                       <div>
-                        <CardTitle className="text-xl text-white mb-2 group-hover:text-red-300 transition-colors duration-300 group-hover:scale-105 inline-block">{exp.title}</CardTitle>
+                        <CardTitle className="text-xl text-white mb-2 group-hover:text-red-300 transition-colors duration-300 group-hover:scale-102 inline-block">{exp.title}</CardTitle>
                         <div className="text-red-400 font-semibold group-hover:text-red-300 transition-colors duration-300">{exp.company}</div>
                       </div>
-                      <Badge variant="outline" className="border-red-600 text-red-300 mt-2 md:mt-0 w-fit hover:scale-125 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50">
+                      <Badge variant="outline" className="border-red-600 text-red-300 mt-2 md:mt-0 w-fit hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50">
                         {exp.period}
                       </Badge>
                     </div>
@@ -136,8 +136,8 @@ const Experience = () => {
                         <Badge 
                           key={techIndex} 
                           variant="secondary" 
-                          className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-125 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
-                          style={{ animationDelay: `${techIndex * 100}ms` }}
+                          className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-110 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
+                          style={{ animationDelay: `${techIndex * 50}ms` }}
                         >
                           {tech}
                         </Badge>

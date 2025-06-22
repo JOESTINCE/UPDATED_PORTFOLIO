@@ -39,7 +39,7 @@ const Projects = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -47,40 +47,40 @@ const Projects = () => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-fade-in');
-            entry.target.classList.remove('opacity-0', 'translate-y-64', '-translate-y-64', 'translate-x-64', '-translate-x-64', 'scale-0', 'rotate-180', '-rotate-180', 'skew-x-45', '-skew-x-45', 'skew-y-45', '-skew-y-45');
-          }, index * 300);
+            entry.target.classList.remove('opacity-0', 'translate-y-24', '-translate-y-24', 'translate-x-24', '-translate-x-24', 'scale-95', 'rotate-3', '-rotate-3');
+          }, index * 200);
         }
       });
     }, observerOptions);
 
-    // Header animations with spiral effect
+    // Header animations with gentle spiral effect
     if (titleRef.current) {
-      titleRef.current.classList.add('opacity-0', '-translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', 'skew-y-45', 'transition-all', 'duration-1400', 'ease-out');
+      titleRef.current.classList.add('opacity-0', '-translate-y-24', 'rotate-3', 'scale-95', 'transition-all', 'duration-900', 'ease-out', 'will-change-transform');
       observer.observe(titleRef.current);
     }
 
     if (descRef.current) {
-      descRef.current.classList.add('opacity-0', 'translate-y-64', '-rotate-180', 'scale-0', '-skew-x-45', '-skew-y-45', 'transition-all', 'duration-1400', 'ease-out', 'delay-400');
+      descRef.current.classList.add('opacity-0', 'translate-y-24', '-rotate-3', 'scale-95', 'transition-all', 'duration-900', 'ease-out', 'delay-300', 'will-change-transform');
       observer.observe(descRef.current);
     }
 
-    // Project cards with dynamic spiral animations
+    // Project cards with gentle animations
     const cards = sectionRef.current?.querySelectorAll('.project-card');
     cards?.forEach((card, index) => {
       const element = card as HTMLElement;
-      element.classList.add('opacity-0', 'transition-all', 'duration-1300', 'ease-out');
-      element.style.transitionDelay = `${(index + 2) * 350}ms`;
+      element.classList.add('opacity-0', 'transition-all', 'duration-800', 'ease-out', 'will-change-transform');
+      element.style.transitionDelay = `${(index + 2) * 250}ms`;
 
-      // Spiral effect for each project card
+      // Gentle effect for each project card
       switch(index) {
-        case 0: // First project: spiral from top-left
-          element.classList.add('-translate-x-64', '-translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', '-skew-y-45');
+        case 0: // First project: gentle slide from top-left
+          element.classList.add('-translate-x-24', '-translate-y-24', 'rotate-3', 'scale-95');
           break;
-        case 1: // Second project: spiral from top-right
-          element.classList.add('translate-x-64', '-translate-y-64', '-rotate-180', 'scale-0', '-skew-x-45', 'skew-y-45');
+        case 1: // Second project: gentle slide from top-right
+          element.classList.add('translate-x-24', '-translate-y-24', '-rotate-3', 'scale-95');
           break;
-        case 2: // Third project: spiral from bottom center
-          element.classList.add('translate-y-64', 'rotate-180', 'scale-0', 'skew-x-45', 'skew-y-45');
+        case 2: // Third project: gentle slide from bottom center
+          element.classList.add('translate-y-24', 'rotate-3', 'scale-95');
           break;
       }
       observer.observe(element);
@@ -111,18 +111,18 @@ const Projects = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="project-card overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-110 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-4 hover:rotate-0">
+            <Card key={index} className="project-card overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-500 hover:scale-105 bg-gray-800 border-red-600/30 hover:border-red-500 group cursor-pointer hover:-translate-y-3 hover:rotate-0">
               <div className="relative overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-48 object-cover transition-all duration-700 group-hover:scale-125 group-hover:brightness-110"
+                  className="w-full h-48 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-red-600/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse group-hover:scale-150 transition-transform duration-300"></div>
+                <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse group-hover:scale-125 transition-transform duration-300"></div>
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300 group-hover:scale-105 inline-block">{project.title}</CardTitle>
+                <CardTitle className="text-xl text-white group-hover:text-red-300 transition-colors duration-300 group-hover:scale-102 inline-block">{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-300 mb-4 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">{project.description}</p>
@@ -131,8 +131,8 @@ const Projects = () => {
                     <Badge 
                       key={techIndex} 
                       variant="secondary" 
-                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-125 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
-                      style={{ animationDelay: `${techIndex * 100}ms` }}
+                      className="bg-gray-700 text-red-300 hover:bg-red-900/50 transition-all duration-300 border border-red-600/30 hover:scale-110 hover:shadow-md hover:shadow-red-500/50 cursor-pointer"
+                      style={{ animationDelay: `${techIndex * 50}ms` }}
                     >
                       {tech}
                     </Badge>
@@ -141,14 +141,14 @@ const Projects = () => {
                 <div className="flex gap-3">
                   <Button 
                     size="sm" 
-                    className="bg-red-600 hover:bg-red-700 text-white flex-1 hover:scale-110 transition-all duration-300 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1"
+                    className="bg-red-600 hover:bg-red-700 text-white flex-1 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-red-600/50 hover:-translate-y-1"
                   >
                     Live Demo
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1 hover:scale-110 transition-all duration-300 hover:shadow-xl hover:shadow-red-400/30 hover:-translate-y-1"
+                    className="border-red-600 text-red-300 hover:bg-red-900/50 flex-1 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-red-400/30 hover:-translate-y-1"
                   >
                     GitHub
                   </Button>
